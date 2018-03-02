@@ -62,11 +62,11 @@ This is where you get to experiment with doing whatever you need to do to add th
 
 ### You are repl
 
-DataCamp's build process specifies that the user that is building the image is called `repl`. The current working directory is `/home/repl`. 
+DataCamp's build process specifies that the user that is building the image is called `repl`. The current working directory is `/home/repl`. See, for example, `docker-r-base`'s [`Dockerfile`](https://github.com/datacamp/docker-r-base/blob/master/Dockerfile#L38).
 
 ### You have access to standard-issue command line tools
 
-In particular, you can download files from Amazon S3 to the image using `wget` or `curl`.
+In particular, you can download files from Amazon S3 to the image using [`wget`](https://www.gnu.org/software/wget/manual/wget.html) or [`curl`](https://curl.haxx.se/docs/manpage.html).
 
 ```sh
 wget https://s3.amazonaws.com/assets.datacamp.com/production/course_9999/datasets/my_data.csv
@@ -94,8 +94,8 @@ To build the image
 
 To explain the last command:
 
-- `docker`: Run the Docker command line tool.
-- `build`: You want to build a docker image.
+- `docker`: Run the [Docker command line](https://docs.docker.com/engine/reference/commandline/cli) tool.
+- `build`: You want to [build](https://docs.docker.com/engine/reference/commandline/build) a docker image.
 - `--tag`: tag the image.
-- `datacamp/test-image`: The tag. Change this value to something more descriptive of your course.
+- `datacamp/test-image`: The [tag](https://docs.docker.com/engine/reference/commandline/tag/). Change this value to something more descriptive of your course.
 - `.`: The directory containing your files, in this case the current directory.
