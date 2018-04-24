@@ -22,7 +22,7 @@ The course image needs two files. The names of these files are important (don't 
 This file should contain code like
 
 ```docker
-FROM dockerhub.datacamp.com:443/msft-sql-base-prod:32
+FROM dockerhub.datacamp.com:443/msft-sql-base-prod:40
 ADD requirements.sh requirements.sh
 RUN chmod u+x requirements.sh
 RUN ./requirements.sh
@@ -30,7 +30,7 @@ RUN ./requirements.sh
 
 Let's step through this line by line.
 
-### `FROM dockerhub.datacamp.com:443/msft-sql-base-prod:32`
+### `FROM dockerhub.datacamp.com:443/msft-sql-base-prod:40`
 
 The first line says "derive this image *from* DataCamp's SQL Server base image, version 32". This is the only line that you want to change.
 
@@ -41,7 +41,7 @@ The base image that you want to derive from depends upon the technology that the
 |R         |[docker-r-base](https://github.com/datacamp/docker-r-base/releases)                  |`FROM dockerhub.datacamp.com:443/r-base-prod:30`         |
 |Python    |[docker-python-base](https://github.com/datacamp/docker-python-base/releases)        |`FROM dockerhub.datacamp.com:443/python-base-prod:21`    |
 |PostgreSQL|[docker-postgresql-base](https://github.com/datacamp/docker-postgresql-base/releases)|`FROM dockerhub.datacamp.com:443/postgresql-base-prod:22`|
-|SQL Server|[docker-msft-sql-base](https://github.com/datacamp/docker-msft-sql-base/releases)    |`FROM dockerhub.datacamp.com:443/msft-sql-base-prod:32`  |
+|SQL Server|[docker-msft-sql-base](https://github.com/datacamp/docker-msft-sql-base/releases)    |`FROM dockerhub.datacamp.com:443/msft-sql-base-prod:40`  |
 |Shell     |[docker-shell-base](https://github.com/datacamp/docker-shell-base/releases)          |`FROM dockerhub.datacamp.com:443/shell-base-prod:22`     |
 
 ### `ADD requirements.sh requirements.sh`
