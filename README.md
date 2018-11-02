@@ -6,7 +6,7 @@ This repository is deisgned to assist Curriculum Leads in the Content team get s
 
 First, read the [main set of instructions](https://github.com/datacamp/image-management-backend/wiki/Setting-up-images) for debugging course image requirements.
 
-In particular, you need to [install docker](https://docs.docker.com/docker-for-mac/install), and ask Filip for the credentials file to access DataCamp's Docker hub.
+In particular, you need to [install docker](https://docs.docker.com/docker-for-mac/install), and ask in the `#engineering-inf` Slack channel for the credentials file to access DataCamp's Docker hub.
 
 You'll also need a text editor and the terminal.
 
@@ -22,7 +22,7 @@ The course image needs two files. The names of these files are important (don't 
 This file should contain code like
 
 ```docker
-FROM dockerhub.datacamp.com:443/msft-sql-base-prod:40
+FROM dockerhub.datacamp.com:443/msft-sql-base-prod:v1.1.1
 ADD requirements.sh requirements.sh
 RUN chmod u+x requirements.sh
 RUN ./requirements.sh
@@ -30,19 +30,21 @@ RUN ./requirements.sh
 
 Let's step through this line by line.
 
-### `FROM dockerhub.datacamp.com:443/msft-sql-base-prod:40`
+### `FROM dockerhub.datacamp.com:443/msft-sql-base-prod:v1.1.1`
 
-The first line says "derive this image *from* DataCamp's SQL Server base image, version 32". This is the only line that you want to change.
+The first line says "derive this image *from* DataCamp's SQL Server base image, version `v1.1.1`". This is the only line that you want to change.
 
-The base image that you want to derive from depends upon the technology that the course is built upon.
+The [base image](https://github.com/datacamp/base-images) that you want to derive from depends upon the technology that the course is built upon. Here are some common examples.
 
 |Tech      |Image                                                                                |Example FROM field                                     |
 |----------|-------------------------------------------------------------------------------------|-------------------------------------------------------|
-|R         |[docker-r-base](https://github.com/datacamp/docker-r-base/releases)                  |`FROM dockerhub.datacamp.com:443/r-base-prod:30`         |
-|Python    |[docker-python-base](https://github.com/datacamp/docker-python-base/releases)        |`FROM dockerhub.datacamp.com:443/python-base-prod:21`    |
-|PostgreSQL|[docker-postgresql-base](https://github.com/datacamp/docker-postgresql-base/releases)|`FROM dockerhub.datacamp.com:443/postgresql-base-prod:22`|
-|SQL Server|[docker-msft-sql-base](https://github.com/datacamp/docker-msft-sql-base/releases)    |`FROM dockerhub.datacamp.com:443/msft-sql-base-prod:40`  |
-|Shell     |[docker-shell-base](https://github.com/datacamp/docker-shell-base/releases)          |`FROM dockerhub.datacamp.com:443/shell-base-prod:22`     |
+|R         |[r-base-prod](https://github.com/datacamp/base-images/tree/master/r-base-prod)                  |`FROM dockerhub.datacamp.com:443/r-base-prod:v1.0.2`         |
+|Python    |[python-base-prod](https://github.com/datacamp/base-images/tree/master/)        |`FROM dockerhub.datacamp.com:443/python-base-prod:v1.1.0`    |
+|PostgreSQL|[postgresql-base-prod](https://github.com/datacamp/base-images/tree/master/postgresql-base-prod)|`FROM dockerhub.datacamp.com:443/postgresql-base-prod:v1.1.0`|
+|SQL Server|[msft-sql-base-prod](https://github.com/datacamp/base-images/tree/master/msft-sql-base-prod)    |`FROM dockerhub.datacamp.com:443/msft-sql-base-prod:v1.1.1`  |
+|Shell     |[shell-base-prod](https://github.com/datacamp/base-images/tree/master/shell-base-prod)          |`FROM dockerhub.datacamp.com:443/shell-base-prod:v1.0.1`     |
+
+You can see the latest release of each image in the "Base Images" pane of the [Content Dashboard](http://dashboards.datacamp.com/content). (Login with u: `admin`, p: `h_____a____`.)
 
 ### `ADD requirements.sh requirements.sh`
 
@@ -74,14 +76,14 @@ wget https://s3.amazonaws.com/assets.datacamp.com/production/course_9999/dataset
 
 (Though for local testing purposes, to save you downloading datasets over and over, it's best to just put any files in the same directory as the Dockerfile.)
 
-### You can get additional tools using apt-get or pip
+### You can get additional tools using apt-get or pip3
 
 If you want to install additional software, use `apt-get` (Linux package installation) or `pip`/`pip3` (Python installer).
 
 ```sh
 apt-get update && apt-get --yes install python-dev python-pip tar
 
-pip install tensorflow==1.4.0
+pip3 install tensorflow==1.4.0
 ```
 
 ## Building the image
